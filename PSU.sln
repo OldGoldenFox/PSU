@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTPO", "RTPO\RTPO.csproj", "{2C5D575F-6615-408D-919F-61EA1AC2A178}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightDemoQA", "PlaywrightDemoQA\PlaywrightDemoQA.csproj", "{2C5D575F-6615-408D-919F-61EA1AC2A178}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
