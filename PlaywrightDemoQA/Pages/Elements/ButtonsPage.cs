@@ -15,6 +15,7 @@ namespace PlaywrightDemoQA.Pages.Elements
         public ILocator ClickMessage => _page.Locator("#dynamicClickMessage");
         
         public ButtonsPage(IPage page) => _page = page;
+        
         public async Task Open()
         {
             await _page.GotoAsync("https://demoqa.com/");
