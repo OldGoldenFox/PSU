@@ -1,6 +1,4 @@
-﻿using Microsoft.Playwright;
-using Microsoft.Playwright.NUnit;
-using PlaywrightDemoQA.Pages.Elements;
+﻿using PlaywrightDemoQA.Pages.Elements;
 
 namespace PlaywrightDemoQA.Tests.Elements
 {
