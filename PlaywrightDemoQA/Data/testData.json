@@ -1,0 +1,18 @@
+﻿{
+  "RestrictedBoxData": {
+    "WidthDelta": 300,
+    "HeightDelta": 100,
+    "MaxExpectedWidth": "490px",
+    "MaxExpectedHeight": "290px",
+    "MinExpectedWidth": "150px",
+    "MinExpectedHeight": "150px"
+  },
+  "SimpleBoxData": {
+    "WidthDelta": 500,
+    "HeightDelta": 300,
+    "MaxExpectedWidth": "690px",
+    "MaxExpectedHeight": "490px",
+    "MinExpectedWidth": "20px",
+    "MinExpectedHeight": "20px"
+  }
+}

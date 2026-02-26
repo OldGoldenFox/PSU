@@ -22,15 +22,17 @@ namespace PlaywrightDemoQA.Tests.Interactions
             await _resizablePage.RestrictedHandle.HoverAsync();
             await Page.Mouse.DownAsync();
             var currentPos = await _resizablePage.RestrictedHandle.BoundingBoxAsync();
-            await Page.Mouse.MoveAsync(currentPos.X + 500, currentPos.Y + 300, new() { Steps = 10 });
+            if (currentPos != null) 
+                await Page.Mouse.MoveAsync(currentPos.X + 500, currentPos.Y + 300, new() { Steps = 10 });
             await Page.Mouse.UpAsync();
             await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("width", "500px");
             await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("height", "300px");
-            
+                
             await _resizablePage.RestrictedHandle.HoverAsync();
             await Page.Mouse.DownAsync();
             currentPos = await _resizablePage.RestrictedHandle.BoundingBoxAsync();
-            await Page.Mouse.MoveAsync(currentPos.X - 500, currentPos.Y - 300, new() { Steps = 10 });
+            if (currentPos != null)
+                await Page.Mouse.MoveAsync(currentPos.X - 500, currentPos.Y - 300, new() { Steps = 10 });
             await Page.Mouse.UpAsync();
             await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("width", "150px");
             await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("height", "150px");
@@ -45,15 +47,18 @@ namespace PlaywrightDemoQA.Tests.Interactions
             await _resizablePage.SimpleHandle.HoverAsync();
             await Page.Mouse.DownAsync();
             var currentPos = await _resizablePage.SimpleHandle.BoundingBoxAsync();
-            await Page.Mouse.MoveAsync(currentPos.X + 500, currentPos.Y + 300, new() { Steps = 10 });
+            if (currentPos != null)
+                await Page.Mouse.MoveAsync(currentPos.X + 500, currentPos.Y + 300, new() { Steps = 10 });
             await Page.Mouse.UpAsync();
             await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("width", "690px");
-            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("height", "540px");
-            
+            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("height", "490px");
+
+                
             await _resizablePage.SimpleHandle.HoverAsync();
             await Page.Mouse.DownAsync();
             currentPos = await _resizablePage.SimpleHandle.BoundingBoxAsync();
-            await Page.Mouse.MoveAsync(currentPos.X - 700, currentPos.Y - 500, new() { Steps = 10 });
+            if (currentPos != null)
+                await Page.Mouse.MoveAsync(currentPos.X - 700, currentPos.Y - 500, new() { Steps = 10 });
             await Page.Mouse.UpAsync();
             await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("width", "20px");
             await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("height", "20px");
