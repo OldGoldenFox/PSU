@@ -6,11 +6,18 @@ namespace PlaywrightDemoQA.Pages.Widgets
     {
         private readonly IPage _page;
 
+        public ILocator TabWhat => _page.Locator("#demo-tab-what");
         public ILocator TabOrigin => _page.Locator("#demo-tab-origin");
         public ILocator TabUse => _page.Locator("#demo-tab-use");
-        public ILocator More => _page.Locator("#demo-tab-more");
+        public ILocator TabMore => _page.Locator("#demo-tab-more");
 
-        public ILocator TabContent => _page.Locator(".tab-content");
+        //public ILocator TabContent => _page.Locator(".tab-content");
+        public ILocator TabPaneWhat => _page.Locator("#demo-tabpane-what");
+        public ILocator TabPaneOrigin => _page.Locator("#demo-tabpane-origin");
+        public ILocator TabPaneUse => _page.Locator("#demo-tabpane-use");
+        public ILocator TabPaneMore => _page.Locator("#demo-tabpane-more");
+
+
         
         public TabsPage(IPage page) => _page = page;
         
