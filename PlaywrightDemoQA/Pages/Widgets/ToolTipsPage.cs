@@ -8,6 +8,8 @@ namespace PlaywrightDemoQA.Pages.Widgets
 
         public ILocator HoverButton => _page.Locator("#toolTipButton");
         public ILocator HoverTextField => _page.Locator("#toolTipTextField");
+        public ILocator ContraryLink => _page.Locator("text=Contrary");
+        public ILocator SectionLink => _page.Locator("text=1.10.32");
         public ILocator ToolTip => _page.Locator(".tooltip-inner");
 
         public ToolTipsPage(IPage page) => _page = page;
