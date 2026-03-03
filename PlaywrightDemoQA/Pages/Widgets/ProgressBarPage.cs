@@ -16,12 +16,26 @@ namespace PlaywrightDemoQA.Pages.Widgets
         {
             await _page.GotoAsync("https://demoqa.com/", new() { WaitUntil = WaitUntilState.DOMContentLoaded });
             await _page.ClickAsync("text=Widgets");
-        
             var menuItem = _page.Locator("span.text:text-is('Progress Bar')");
             await menuItem.ScrollIntoViewIfNeededAsync();
             await menuItem.ClickAsync(new() { Force = true });
         
             await _page.Locator("h1").WaitForAsync();
+        }
+        
+        public async Task<int> GetProgressValueAsync()
+        {
+            var valueText = await ProgressBar.GetAttributeAsync("aria-valuenow");
+            return int.Parse(valueText ?? "0");
+        }
+        
+        public async Task WaitForProgressValueAsync(int targetValue)
+        {
+            await _page.WaitForFunctionAsync(
+                "target => document.querySelector('.progress-bar').ariaValueNow >= target",
+                targetValue,
+                new() { Timeout = 30000 } 
+            );
         }
     }
 }
