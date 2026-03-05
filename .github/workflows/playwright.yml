@@ -1,7 +1,9 @@
-﻿name: Playwright DemoQA CI
+name: Playwright DemoQA CI
 
 on:
   push:
+    branches: [ master ]
+  pull_request:
     branches: [ master ]
 
 jobs:
@@ -19,37 +21,36 @@ jobs:
           dotnet-version: 10.0.x 
 
       - name: Install dependencies
-        run: dotnet restore PlaywrightDemoQA.csproj
+        # Указываем путь к проекту: Папка/Файл
+        run: dotnet restore PlaywrightDemoQA/PlaywrightDemoQA.csproj
 
       - name: Build project
-        run: dotnet build PlaywrightDemoQA.csproj --configuration Release --no-restore
+        run: dotnet build PlaywrightDemoQA/PlaywrightDemoQA.csproj --configuration Release --no-restore
 
       - name: Install Playwright Browsers
-
-        run: pwsh bin/Release/net10.0/playwright.ps1 install --with-deps
+        # Скрипт установки лежит в выходной папке проекта
+        run: pwsh PlaywrightDemoQA/bin/Release/net10.0/playwright.ps1 install --with-deps
 
       - name: Run Tests
-
-        run: dotnet test PlaywrightDemoQA.csproj --configuration Release --no-build --logger:"trx;LogFileName=results.trx"
+        run: dotnet test PlaywrightDemoQA/PlaywrightDemoQA.csproj --configuration Release --no-build --logger:"trx;LogFileName=results.trx"
 
       - name: Upload Playwright Traces
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-traces
-
-          path: bin/Release/net10.0/playwright-traces/
+          path: PlaywrightDemoQA/bin/Release/net10.0/playwright-traces/
 
       - name: Upload Screenshots
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: error-screenshots
-          path: bin/Release/net10.0/screenshots/
+          path: PlaywrightDemoQA/bin/Release/net10.0/screenshots/
 
       - name: Upload Allure Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path: bin/Release/net10.0/allure-results/
+          path: PlaywrightDemoQA/bin/Release/net10.0/allure-results/
