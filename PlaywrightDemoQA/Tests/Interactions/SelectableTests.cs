@@ -42,6 +42,8 @@ namespace PlaywrightDemoQA.Tests.Interactions
             await Expect(_selectablePage.ActiveItems).ToHaveCountAsync(2);
     
             await Expect(_selectablePage.GridItems.Nth(0)).Not.ToHaveClassAsync(new Regex("active"));
+            
+            // Проверка гита CICD
         }
     }
 }
