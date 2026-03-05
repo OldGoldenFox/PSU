@@ -6,10 +6,18 @@ namespace PlaywrightDemoQA.Pages.Widgets
     {
         private readonly IPage _page;
         
-        public ILocator SelectValue => _page.Locator("#withOptGroup");
-        public ILocator SelectOption => _page.Locator("#withOptGroup .css-hlgwow");
+        public ILocator SelectValueInput => _page.Locator("#withOptGroup");
+        public ILocator CurrentValueText => _page.Locator("#withOptGroup .css-hlgwow");
         
+        public ILocator SelectOneInput => _page.Locator("#selectOne");
+        public ILocator CurrentOneText => _page.Locator("#selectOne .css-hlgwow");
         
+        public ILocator OldStyleSelect => _page.Locator("#oldSelectMenu");
+        
+        public ILocator MultiSelectInput => _page.Locator(".css-b62m3t-container").Last;
+        
+        public ILocator StandardMultiSelect => _page.Locator("#cars");
+
         public SelectMenuPage(IPage page) => _page = page;
         
         public async Task Open()
@@ -22,6 +30,13 @@ namespace PlaywrightDemoQA.Pages.Widgets
             await menuItem.ClickAsync();
 
             await _page.Locator("h1").WaitForAsync();
+        }
+
+        public async Task SelectCustomOption(ILocator input, string optionText)
+        {
+            await input.ClickAsync(new () { Force = true });
+            await _page.Keyboard.TypeAsync(optionText);
+            await _page.Keyboard.PressAsync("Enter");
         }
     }
 }

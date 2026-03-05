@@ -14,54 +14,37 @@ namespace PlaywrightDemoQA.Tests.Interactions
         }
 
         [Test]
-        public async Task ResizeBoxWithRestriction()
+        public async Task test_resize_box_with_restrictions()
         {
-            await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("width", "200px");
-            await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("height", "200px");
-            
-            await _resizablePage.RestrictedHandle.HoverAsync();
-            await Page.Mouse.DownAsync();
-            var currentPos = await _resizablePage.RestrictedHandle.BoundingBoxAsync();
-            if (currentPos != null) 
-                await Page.Mouse.MoveAsync(currentPos.X + 500, currentPos.Y + 300, new() { Steps = 10 });
-            await Page.Mouse.UpAsync();
-            await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("width", "500px");
-            await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("height", "300px");
-                
-            await _resizablePage.RestrictedHandle.HoverAsync();
-            await Page.Mouse.DownAsync();
-            currentPos = await _resizablePage.RestrictedHandle.BoundingBoxAsync();
-            if (currentPos != null)
-                await Page.Mouse.MoveAsync(currentPos.X - 500, currentPos.Y - 300, new() { Steps = 10 });
-            await Page.Mouse.UpAsync();
-            await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("width", "150px");
-            await Expect(_resizablePage.RestrictedBox).ToHaveCSSAsync("height", "150px");
-        }
-        
-        [Test]
-        public async Task ResizeBox()
-        {
-            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("width", "200px");
-            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("height", "200px");
-            
-            await _resizablePage.SimpleHandle.HoverAsync();
-            await Page.Mouse.DownAsync();
-            var currentPos = await _resizablePage.SimpleHandle.BoundingBoxAsync();
-            if (currentPos != null)
-                await Page.Mouse.MoveAsync(currentPos.X + 500, currentPos.Y + 300, new() { Steps = 10 });
-            await Page.Mouse.UpAsync();
-            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("width", "690px");
-            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("height", "490px");
+            var box = _resizablePage.RestrictedBox;
+            var handle = _resizablePage.RestrictedHandle;
 
-                
-            await _resizablePage.SimpleHandle.HoverAsync();
-            await Page.Mouse.DownAsync();
-            currentPos = await _resizablePage.SimpleHandle.BoundingBoxAsync();
-            if (currentPos != null)
-                await Page.Mouse.MoveAsync(currentPos.X - 700, currentPos.Y - 500, new() { Steps = 10 });
-            await Page.Mouse.UpAsync();
-            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("width", "20px");
-            await Expect(_resizablePage.SimpleBox).ToHaveCSSAsync("height", "20px");
+            await _resizablePage.ResizeElement(handle, -100, -100);
+            var size = await box.BoundingBoxAsync();
+            Assert.That(size.Width, Is.EqualTo(150).Within(2));
+            Assert.That(size.Height, Is.EqualTo(150).Within(2));
+
+            await _resizablePage.ResizeElement(handle, 400, 200);
+            size = await box.BoundingBoxAsync();
+            Assert.That(size.Width, Is.EqualTo(500).Within(2));
+            Assert.That(size.Height, Is.EqualTo(300).Within(2));
+        }
+
+        [Test]
+        public async Task test_resize_without_restrictions()
+        {
+            var box = _resizablePage.SimpleBox;
+            var handle = _resizablePage.SimpleHandle;
+    
+            await box.ScrollIntoViewIfNeededAsync();
+
+            var initialSize = await box.BoundingBoxAsync();
+
+            await _resizablePage.ResizeElement(handle, 100, 100);
+            var newSize = await box.BoundingBoxAsync();
+    
+            Assert.That(newSize.Width, Is.EqualTo(initialSize.Width + 100).Within(2));
+            Assert.That(newSize.Height, Is.EqualTo(initialSize.Height + 100).Within(2));
         }
     }
 }

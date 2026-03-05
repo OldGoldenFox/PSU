@@ -25,4 +25,16 @@ public class ResizablePage
         
         await _page.Locator("h1").WaitForAsync();
     }
+    
+    public async Task ResizeElement(ILocator handle, double xOffset, double yOffset)
+    {
+        var box = await handle.BoundingBoxAsync();
+        if (box != null)
+        {
+            await handle.HoverAsync();
+            await _page.Mouse.DownAsync();
+            await _page.Mouse.MoveAsync((float)(box.X + box.Width / 2 + xOffset), (float)(box.Y + box.Height / 2 + yOffset), new() { Steps = 5 });
+            await _page.Mouse.UpAsync();
+        }
+    }
 }

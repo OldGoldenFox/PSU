@@ -6,8 +6,13 @@ namespace PlaywrightDemoQA.Pages.Interactions
     {
         private readonly IPage _page;
 
-        public ILocator ListItems => _page.Locator("#verticalListContainer li:visible");
+        public ILocator TabList => _page.Locator("#demo-tab-list");
+        public ILocator TabGrid => _page.Locator("#demo-tab-grid");
 
+        public ILocator ListItems => _page.Locator("#verticalListContainer li:visible");
+        public ILocator GridItems => _page.Locator("#gridContainer li:visible");
+        
+        public ILocator ActiveItems => _page.Locator(".list-group-item.active:visible");
         public SelectablePage(IPage page) => _page = page;
     
         public async Task Open()
