@@ -17,7 +17,7 @@ namespace PlaywrightDemoQA.Tests.Interactions
         public async Task test_resize_box_with_restrictions()
         {
             var box = _resizablePage.RestrictedBox;
-            var handle = _resizablePage.RestrictedHandle;
+            var handle = _resizablePage.RestrictedHandle // специальная ошибка
 
             await _resizablePage.ResizeElement(handle, -100, -100);
             var size = await box.BoundingBoxAsync();
