@@ -9,7 +9,7 @@ public class ResizablePage
     public ILocator RestrictedBox => _page.Locator("#resizableBoxWithRestriction");
     public ILocator RestrictedHandle => RestrictedBox.Locator(".react-resizable-handle.react-resizable-handle-se");
 
-    public ILocator SimpleBox => _page.Locator("#resizable");
+    public ILocator SimpleBox => _page.Locator("#resizableERROR"); // Специальная ошибка
     public ILocator SimpleHandle => SimpleBox.Locator(".react-resizable-handle.react-resizable-handle-se");
         
     public ResizablePage(IPage page) => _page = page;
